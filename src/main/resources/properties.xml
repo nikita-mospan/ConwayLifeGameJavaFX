@@ -3,4 +3,5 @@
 <properties>
     <entry key="fieldWidth">30</entry>
     <entry key="fieldHeight">30</entry>
+    <entry key="cellSize">20</entry>
 </properties>

@@ -24,12 +24,13 @@ public class Main extends Application {
             throw new RuntimeException(e);
         }
 
-        final int fieldWidth = Integer.valueOf(properties.getProperty(Constants.FieldWidth.getValue()));
-        final int fieldHeight = Integer.valueOf(properties.getProperty(Constants.FieldHeight.getValue()));
+        final int fieldWidth = Integer.valueOf(properties.getProperty("fieldWidth"));
+        final int fieldHeight = Integer.valueOf(properties.getProperty("fieldHeight"));
+        final int cellSize = Integer.valueOf(properties.getProperty("cellSize"));
 
         GameField gameField = new GameField(fieldWidth, fieldHeight);
 
-        ViewTemplate viewTemplate = new ViewTemplate(fieldWidth, fieldHeight);
+        ViewTemplate viewTemplate = new ViewTemplate(fieldWidth, fieldHeight, cellSize);
 
         Scene scene = new Scene(viewTemplate.getRootBox());
         primaryStage.setScene(scene);

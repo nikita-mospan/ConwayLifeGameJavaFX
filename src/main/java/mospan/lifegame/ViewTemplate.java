@@ -8,6 +8,7 @@ import javafx.scene.layout.*;
 class ViewTemplate {
     private GridPane gridPane;
     private Pane cells[][];
+    private int cellSize;
 
     private Button startStopButton;
 
@@ -33,7 +34,7 @@ class ViewTemplate {
         }
     }
 
-    ViewTemplate(final int width, final int height) {
+    ViewTemplate(final int width, final int height, final int cellSize) {
         rootBox = new VBox();
         gridPane = new GridPane();
         gridPane.setGridLinesVisible(true);
@@ -44,7 +45,7 @@ class ViewTemplate {
         borderPane.setTop(startStopButton);
         cells = new Pane [width][height];
         //
-        final int cellSize = Integer.valueOf(Constants.CellSize.getValue());
+        this.cellSize = cellSize;
 
         for(int columnIndex = 0; columnIndex < width; columnIndex++) {
             ColumnConstraints columnConstraints = new ColumnConstraints();

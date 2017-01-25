@@ -4,10 +4,7 @@ package mospan.lifegame;
  * Created by mospnik on 1/13/2017.
  */
 public enum Constants {
-    FieldWidth("fieldWidth")
-    , FieldHeight("fieldHeight")
-    , PropertiesFileName("/properties.xml")
-    , CellSize("20")
+    PropertiesFileName("/properties.xml")
     , AliveCellColor("-fx-background-color: black")
     , DeadCellColor(null)
     , StartButtonValue("Start")
