@@ -29,6 +29,7 @@ public class Main extends Application {
         final int cellSize = Integer.valueOf(properties.getProperty("cellSize"));
         final String aliveCellColor = properties.getProperty("aliveCellColor");
         final String deadCellColor = properties.getProperty("deadCellColor");
+        final int refreshTimeMills = Integer.valueOf(properties.getProperty("refreshTimeMills"));
 
         GameField gameField = new GameField(fieldWidth, fieldHeight);
 
@@ -71,7 +72,7 @@ public class Main extends Application {
 
         primaryStage.show();
 
-        Runnable lifeCycle = new LifeController(gameField);
+        Runnable lifeCycle = new LifeController(gameField, refreshTimeMills);
 
         Thread lifeCycleThread = new Thread(lifeCycle);
 

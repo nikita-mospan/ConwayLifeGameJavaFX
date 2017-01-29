@@ -6,4 +6,5 @@
     <entry key="cellSize">20</entry>
     <entry key="aliveCellColor">-fx-background-color: black</entry>
     <entry key="deadCellColor"></entry>
+    <entry key="refreshTimeMills">300</entry>
 </properties>

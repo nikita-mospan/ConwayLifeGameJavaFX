@@ -7,7 +7,6 @@ public enum Constants {
     PropertiesFileName("/properties.xml")
     , StartButtonValue("Start")
     , StopButtonValue("Stop")
-    , RefreshTimeMills("300")
     ;
 
     private String value;

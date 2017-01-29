@@ -3,9 +3,11 @@ package mospan.lifegame;
 class LifeController implements Runnable {
 
     private GameField gameField;
+    private int refreshTimeMills;
 
-    LifeController(GameField gameField) {
+    LifeController(GameField gameField, int refreshTimeMills) {
         this.gameField = gameField;
+        this.refreshTimeMills = refreshTimeMills;
     }
 
     @Override
@@ -38,7 +40,7 @@ class LifeController implements Runnable {
             }
 
             try {
-                Thread.sleep(Integer.valueOf(Constants.RefreshTimeMills.getValue()));
+                Thread.sleep(refreshTimeMills);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
