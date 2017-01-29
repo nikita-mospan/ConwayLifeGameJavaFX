@@ -4,8 +4,7 @@ package mospan.lifegame;
  * Created by mospnik on 1/13/2017.
  */
 public enum Constants {
-    PropertiesFileName("/properties.xml")
-    , StartButtonValue("Start")
+    StartButtonValue("Start")
     , StopButtonValue("Stop")
     ;
 

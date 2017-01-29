@@ -18,7 +18,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Properties properties = new Properties();
-        try(InputStream inputStream = Main.class.getResourceAsStream(Constants.PropertiesFileName.getValue())) {
+        try(InputStream inputStream = Main.class.getResourceAsStream("/properties.xml")) {
             properties.loadFromXML(inputStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
