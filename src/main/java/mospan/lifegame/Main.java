@@ -27,6 +27,8 @@ public class Main extends Application {
         final int fieldWidth = Integer.valueOf(properties.getProperty("fieldWidth"));
         final int fieldHeight = Integer.valueOf(properties.getProperty("fieldHeight"));
         final int cellSize = Integer.valueOf(properties.getProperty("cellSize"));
+        final String aliveCellColor = properties.getProperty("aliveCellColor");
+        final String deadCellColor = properties.getProperty("deadCellColor");
 
         GameField gameField = new GameField(fieldWidth, fieldHeight);
 
@@ -45,9 +47,9 @@ public class Main extends Application {
                 final int lambdaRowIndex = rowIndex;
                 gameField.getCells().get(columnIndex).get(rowIndex).addListener((observable, oldValue, newValue) -> {
                     if(newValue == LifeState.ALIVE) {
-                        viewTemplate.getCell(lambdaColIndex, lambdaRowIndex).setStyle(Constants.AliveCellColor.getValue());
+                        viewTemplate.getCell(lambdaColIndex, lambdaRowIndex).setStyle(aliveCellColor);
                     } else {
-                        viewTemplate.getCell(lambdaColIndex, lambdaRowIndex).setStyle(Constants.DeadCellColor.getValue());
+                        viewTemplate.getCell(lambdaColIndex, lambdaRowIndex).setStyle(deadCellColor);
                     }
                 });
             }

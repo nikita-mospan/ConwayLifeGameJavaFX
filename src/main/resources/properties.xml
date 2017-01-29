@@ -4,4 +4,6 @@
     <entry key="fieldWidth">30</entry>
     <entry key="fieldHeight">30</entry>
     <entry key="cellSize">20</entry>
+    <entry key="aliveCellColor">-fx-background-color: black</entry>
+    <entry key="deadCellColor"></entry>
 </properties>

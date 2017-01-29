@@ -5,8 +5,6 @@ package mospan.lifegame;
  */
 public enum Constants {
     PropertiesFileName("/properties.xml")
-    , AliveCellColor("-fx-background-color: black")
-    , DeadCellColor(null)
     , StartButtonValue("Start")
     , StopButtonValue("Stop")
     , RefreshTimeMills("300")
