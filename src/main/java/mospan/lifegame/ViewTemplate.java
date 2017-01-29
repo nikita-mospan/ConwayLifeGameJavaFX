@@ -10,6 +10,9 @@ class ViewTemplate {
     private Pane cells[][];
     private int cellSize;
 
+    public static final String STOP_BUTTON_LABEL = "Stop";
+    public static final String START_BUTTON_LABEL = "Start";
+
     private Button startStopButton;
 
     private VBox rootBox;
@@ -25,11 +28,11 @@ class ViewTemplate {
     private void toggleStartStopButton() {
         synchronized (Synchronization.keyStartStopButton) {
             StaticInfo.toggleStopButtonPressed();
-            if (startStopButton.getText().equals(Constants.StartButtonValue.getValue())) {
-                startStopButton.setText(Constants.StopButtonValue.getValue());
+            if (startStopButton.getText().equals(START_BUTTON_LABEL)) {
+                startStopButton.setText(STOP_BUTTON_LABEL);
                 Synchronization.keyStartStopButton.notify();
             } else {
-                startStopButton.setText(Constants.StartButtonValue.getValue());
+                startStopButton.setText(START_BUTTON_LABEL);
             }
         }
     }

@@ -61,7 +61,7 @@ public class Main extends Application {
                 final int lambdaColIndex = columnIndex;
                 final int lambdaRowIndex = rowIndex;
                 viewTemplate.getCell(columnIndex, rowIndex).addEventHandler(MouseEvent.MOUSE_PRESSED, (event) -> {
-                                            if(viewTemplate.getStartStopButton().getText().equals(Constants.StartButtonValue.getValue())
+                                            if(viewTemplate.getStartStopButton().getText().equals(ViewTemplate.START_BUTTON_LABEL)
                                                     && StaticInfo.getGenerationCount() == 0) {
                                                 gameField.toggleLifeState(lambdaColIndex, lambdaRowIndex);
                                             }
