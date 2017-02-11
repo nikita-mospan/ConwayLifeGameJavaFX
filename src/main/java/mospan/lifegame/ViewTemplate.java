@@ -2,20 +2,26 @@ package mospan.lifegame;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 class ViewTemplate {
     private GridPane gridPane;
-    private Pane cells[][];
-    private int cellSize;
 
-    public static final String STOP_BUTTON_LABEL = "Stop";
-    public static final String START_BUTTON_LABEL = "Start";
+    static final String STOP_BUTTON_LABEL = "Stop";
+    static final String START_BUTTON_LABEL = "Start";
+    private static final String GENERATION_INFO_HEADER = "Generation: ";
 
     private Button startStopButton;
 
     private VBox rootBox;
+
+    private static TextField generationCountInfo = new TextField(GENERATION_INFO_HEADER);
+
+    static void setGenerationCountInfo(final int generationCount) {
+        generationCountInfo.setText(GENERATION_INFO_HEADER + generationCount);
+    }
 
     VBox getRootBox() {
         return rootBox;
@@ -41,14 +47,18 @@ class ViewTemplate {
         rootBox = new VBox();
         gridPane = new GridPane();
         gridPane.setGridLinesVisible(true);
+
+        HBox boxForButtons = new HBox();
+
+
         //
         startStopButton = new Button("Start");
         startStopButton.addEventHandler(MouseEvent.MOUSE_PRESSED, (event) -> toggleStartStopButton());
-        BorderPane borderPane = new BorderPane();
-        borderPane.setTop(startStopButton);
-        cells = new Pane [width][height];
+
+        boxForButtons.getChildren().add(startStopButton);
+        boxForButtons.getChildren().add(generationCountInfo);
+        Pane cells[][] = new Pane [width][height];
         //
-        this.cellSize = cellSize;
 
         for(int columnIndex = 0; columnIndex < width; columnIndex++) {
             ColumnConstraints columnConstraints = new ColumnConstraints();
@@ -71,7 +81,7 @@ class ViewTemplate {
             }
         }
 
-        rootBox.getChildren().addAll(borderPane, gridPane);
+        rootBox.getChildren().addAll(boxForButtons, gridPane);
     }
 
     Pane getCell(Integer columnIndex, Integer rowIndex) {
