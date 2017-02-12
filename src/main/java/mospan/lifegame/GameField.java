@@ -52,6 +52,14 @@ class GameField {
         }
     }
 
+    void resetGameField() {
+        for (int columnIndex = 0; columnIndex < fieldWidth; columnIndex++) {
+            for (int rowIndex = 0; rowIndex < fieldHeight; rowIndex++) {
+                setCellState(columnIndex, rowIndex, LifeState.DEAD);
+            }
+        }
+    }
+
     void setCellStates(LifeState lifeStates[][]) {
         for (int columnIndex = 0; columnIndex < fieldWidth; columnIndex++) {
             for (int rowIndex = 0; rowIndex < fieldHeight; rowIndex++) {

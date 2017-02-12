@@ -21,6 +21,8 @@ class StaticInfo {
         generationCount.setValue(generationCount.getValue() + 1);
     }
 
+    static void resetGenerationCount() {generationCount.setValue(0);}
+
     static void toggleStopButtonPressed() {
         synchronized (Synchronization.keyStartStopButton) {
             stopButtonPressed = !stopButtonPressed;

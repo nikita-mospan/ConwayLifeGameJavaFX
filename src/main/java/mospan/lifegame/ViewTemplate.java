@@ -15,9 +15,15 @@ class ViewTemplate {
 
     private Button startStopButton;
 
+    private Button resetButton;
+
     private VBox rootBox;
 
-    private static TextField generationCountInfo = new TextField(GENERATION_INFO_HEADER);
+    private static TextField generationCountInfo = new TextField(GENERATION_INFO_HEADER + StaticInfo.getGenerationCount());
+
+    Button getResetButton() {
+        return resetButton;
+    }
 
     static void setGenerationCountInfo(final int generationCount) {
         generationCountInfo.setText(GENERATION_INFO_HEADER + generationCount);
@@ -31,7 +37,7 @@ class ViewTemplate {
         return startStopButton;
     }
 
-    private void toggleStartStopButton() {
+    void toggleStartStopButton() {
         synchronized (Synchronization.keyStartStopButton) {
             StaticInfo.toggleStopButtonPressed();
             if (startStopButton.getText().equals(START_BUTTON_LABEL)) {
@@ -45,20 +51,24 @@ class ViewTemplate {
 
     ViewTemplate(final int width, final int height, final int cellSize) {
         rootBox = new VBox();
-        gridPane = new GridPane();
-        gridPane.setGridLinesVisible(true);
+
 
         HBox boxForButtons = new HBox();
 
-
         //
-        startStopButton = new Button("Start");
+        startStopButton = new Button(START_BUTTON_LABEL);
         startStopButton.addEventHandler(MouseEvent.MOUSE_PRESSED, (event) -> toggleStartStopButton());
+        //
+        resetButton = new Button("Reset");
 
         boxForButtons.getChildren().add(startStopButton);
+        boxForButtons.getChildren().add(resetButton);
         boxForButtons.getChildren().add(generationCountInfo);
         Pane cells[][] = new Pane [width][height];
         //
+
+        gridPane = new GridPane();
+        gridPane.setGridLinesVisible(true);
 
         for(int columnIndex = 0; columnIndex < width; columnIndex++) {
             ColumnConstraints columnConstraints = new ColumnConstraints();

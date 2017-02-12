@@ -70,6 +70,16 @@ public class Main extends Application {
             }
         }
 
+        viewTemplate.getResetButton().addEventHandler(MouseEvent.MOUSE_PRESSED, event -> {
+            synchronized (Synchronization.keyStartStopButton) {
+                if (viewTemplate.getStartStopButton().getText().equals(ViewTemplate.STOP_BUTTON_LABEL)) {
+                    viewTemplate.toggleStartStopButton();
+                }
+                StaticInfo.resetGenerationCount();
+                gameField.resetGameField();
+            }
+        });
+
         primaryStage.show();
 
         Runnable lifeCycle = new LifeController(gameField, refreshTimeMills);
