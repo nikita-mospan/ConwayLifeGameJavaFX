@@ -1,7 +1,7 @@
 # ConwayLifeGameJavaFX
 > The project contains source code of Conway's Game of Life (https://en.wikipedia.org/wiki/Conway's_Game_of_Life). It is organized as Maven project and is written as GUI application on JavaFX for self-study purposes.
 
-##Prerequisites
+## Prerequisites
 
 JDK 1.8 or higher.
 Maven
