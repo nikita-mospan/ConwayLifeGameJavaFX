@@ -12,11 +12,11 @@ import java.util.Properties;
 public class Main extends Application {
 
     public static void main(String[] args) {
-        Application.launch();
+        launch();
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         Properties properties = new Properties();
         try(InputStream inputStream = Main.class.getResourceAsStream("/properties.xml")) {
             properties.loadFromXML(inputStream);
