@@ -6,6 +6,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
+import java.util.Objects;
+
 class ViewTemplate {
     private GridPane gridPane;
 
@@ -86,7 +88,7 @@ class ViewTemplate {
             for(int rowIndex = 0; rowIndex < height; rowIndex++) {
                 cells[columnIndex][rowIndex] = new Pane();
 
-                gridPane.setConstraints(cells[columnIndex][rowIndex], columnIndex, rowIndex);
+                GridPane.setConstraints(cells[columnIndex][rowIndex], columnIndex, rowIndex);
                 gridPane.getChildren().add(cells[columnIndex][rowIndex]);
             }
         }
@@ -96,7 +98,7 @@ class ViewTemplate {
 
     Pane getCell(Integer columnIndex, Integer rowIndex) {
         for (Node node : gridPane.getChildren()) {
-            if (GridPane.getColumnIndex(node) == columnIndex && GridPane.getRowIndex(node) == rowIndex) {
+            if (Objects.equals(GridPane.getColumnIndex(node), columnIndex) && Objects.equals(GridPane.getRowIndex(node), rowIndex)) {
                 return (Pane) node;
             }
         }
