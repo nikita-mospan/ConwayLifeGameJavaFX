@@ -9,7 +9,7 @@ import java.util.List;
 
 class GameField {
 
-    private List<List<ObjectProperty<LifeState>>> cells;
+    private final List<List<ObjectProperty<LifeState>>> cells;
 
     private final int fieldWidth;
 
@@ -60,7 +60,7 @@ class GameField {
         }
     }
 
-    void setCellStates(LifeState lifeStates[][]) {
+    void setCellStates(LifeState[][] lifeStates) {
         for (int columnIndex = 0; columnIndex < fieldWidth; columnIndex++) {
             for (int rowIndex = 0; rowIndex < fieldHeight; rowIndex++) {
                 setCellState(columnIndex, rowIndex, lifeStates[columnIndex][rowIndex]);
@@ -72,19 +72,22 @@ class GameField {
 
     private int getCountOfAliveNeighbours(int columnIndex, int rowIndex) {
 
-        final int newLeftColumnIndex = (columnIndex == 0) ? fieldWidth - 1 : columnIndex - 1;
-        final int newRightColumnIndex = (columnIndex == fieldWidth - 1) ? 0 : columnIndex + 1;
-        final int newTopRowIndex = (rowIndex == 0) ? fieldHeight - 1 : rowIndex - 1;
-        final int newBottomRowIndex = (rowIndex == fieldHeight - 1) ? 0 : rowIndex + 1;
+        final int leftIndex = (columnIndex == 0) ? fieldWidth - 1 : columnIndex - 1;
+        final int rightIndex = (columnIndex == fieldWidth - 1) ? 0 : columnIndex + 1;
+        final int topIndex = (rowIndex == 0) ? fieldHeight - 1 : rowIndex - 1;
+        final int bottomIndex = (rowIndex == fieldHeight - 1) ? 0 : rowIndex + 1;
 
-        final LifeState leftNeighbour = cells.get(newLeftColumnIndex).get(rowIndex).get();
-        final LifeState rightNeighbour = cells.get(newRightColumnIndex).get(rowIndex).get();
-        final LifeState topNeighbour = cells.get(columnIndex).get(newTopRowIndex).get();
-        final LifeState bottomNeighbour = cells.get(columnIndex).get(newBottomRowIndex).get();
-        final LifeState leftTopNeighbour = cells.get(newLeftColumnIndex).get(newTopRowIndex).get();
-        final LifeState rightTopNeighbour = cells.get(newRightColumnIndex).get(newTopRowIndex).get();
-        final LifeState leftBottomNeighbour = cells.get(newLeftColumnIndex).get(newBottomRowIndex).get();
-        final LifeState rightBottomNeighbour = cells.get(newRightColumnIndex).get(newBottomRowIndex).get();
+        final List<ObjectProperty<LifeState>> leftColumn = cells.get(leftIndex);
+        final List<ObjectProperty<LifeState>> rightColumn = cells.get(rightIndex);
+
+        final LifeState leftNeighbour = leftColumn.get(rowIndex).get();
+        final LifeState rightNeighbour = rightColumn.get(rowIndex).get();
+        final LifeState topNeighbour = cells.get(columnIndex).get(topIndex).get();
+        final LifeState bottomNeighbour = cells.get(columnIndex).get(bottomIndex).get();
+        final LifeState leftTopNeighbour = leftColumn.get(topIndex).get();
+        final LifeState rightTopNeighbour = rightColumn.get(topIndex).get();
+        final LifeState leftBottomNeighbour = leftColumn.get(bottomIndex).get();
+        final LifeState rightBottomNeighbour = rightColumn.get(bottomIndex).get();
 
         List<LifeState> neighbours = Arrays.asList(leftNeighbour, rightNeighbour, topNeighbour, bottomNeighbour, leftTopNeighbour,
                 rightTopNeighbour, leftBottomNeighbour, rightBottomNeighbour);

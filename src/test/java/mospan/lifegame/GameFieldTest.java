@@ -1,6 +1,10 @@
 package mospan.lifegame;
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 public class GameFieldTest {
     private static GameField gameField;
@@ -12,7 +16,6 @@ public class GameFieldTest {
             for (int rowIndex = 0; rowIndex < FIELD_HEIGHT; rowIndex++) {
                 gameField.getCells().get(colIndex).get(rowIndex).set(LifeState.DEAD);
             }
-
         }
     }
 

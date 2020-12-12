@@ -9,19 +9,19 @@ import javafx.scene.layout.*;
 import java.util.Objects;
 
 class ViewTemplate {
-    private GridPane gridPane;
+    private final GridPane gridPane;
 
     static final String STOP_BUTTON_LABEL = "Stop";
     static final String START_BUTTON_LABEL = "Start";
     private static final String GENERATION_INFO_HEADER = "Generation: ";
 
-    private Button startStopButton;
+    private final Button startStopButton;
 
-    private Button resetButton;
+    private final Button resetButton;
 
-    private VBox rootBox;
+    private final VBox rootBox;
 
-    private static TextField generationCountInfo = new TextField(GENERATION_INFO_HEADER + StaticInfo.getGenerationCount());
+    private static final TextField generationCountInfo = new TextField(GENERATION_INFO_HEADER + StaticInfo.getGenerationCount());
 
     Button getResetButton() {
         return resetButton;
@@ -66,7 +66,7 @@ class ViewTemplate {
         boxForButtons.getChildren().add(startStopButton);
         boxForButtons.getChildren().add(resetButton);
         boxForButtons.getChildren().add(generationCountInfo);
-        Pane cells[][] = new Pane [width][height];
+        Pane[][] cells = new Pane [width][height];
         //
 
         gridPane = new GridPane();

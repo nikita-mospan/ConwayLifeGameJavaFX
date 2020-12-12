@@ -2,8 +2,8 @@ package mospan.lifegame;
 
 class LifeController implements Runnable {
 
-    private GameField gameField;
-    private int refreshTimeMills;
+    private final GameField gameField;
+    private final int refreshTimeMills;
 
     LifeController(GameField gameField, int refreshTimeMills) {
         this.gameField = gameField;
@@ -14,7 +14,7 @@ class LifeController implements Runnable {
     public void run() {
         final int fieldWidth = gameField.getFieldWidth();
         final int fieldHeight = gameField.getFieldHeight();
-        LifeState nextLifeStates[][] = new LifeState[fieldWidth][fieldHeight];
+        final LifeState[][] nextLifeStates = new LifeState[fieldWidth][fieldHeight];
 
         while(! Thread.currentThread().isInterrupted()) {
 
@@ -32,7 +32,9 @@ class LifeController implements Runnable {
             } else {
                 synchronized (Synchronization.keyStartStopButton) {
                     try {
-                        Synchronization.keyStartStopButton.wait();
+                        while (StaticInfo.getStopButtonPressed()) {
+                            Synchronization.keyStartStopButton.wait();
+                        }
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }

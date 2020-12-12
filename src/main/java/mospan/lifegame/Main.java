@@ -24,12 +24,12 @@ public class Main extends Application {
             throw new RuntimeException(e);
         }
 
-        final int fieldWidth = Integer.valueOf(properties.getProperty("fieldWidth"));
-        final int fieldHeight = Integer.valueOf(properties.getProperty("fieldHeight"));
-        final int cellSize = Integer.valueOf(properties.getProperty("cellSize"));
+        final int fieldWidth = Integer.parseInt(properties.getProperty("fieldWidth"));
+        final int fieldHeight = Integer.parseInt(properties.getProperty("fieldHeight"));
+        final int cellSize = Integer.parseInt(properties.getProperty("cellSize"));
         final String aliveCellColor = properties.getProperty("aliveCellColor");
         final String deadCellColor = properties.getProperty("deadCellColor");
-        final int refreshTimeMills = Integer.valueOf(properties.getProperty("refreshTimeMills"));
+        final int refreshTimeMills = Integer.parseInt(properties.getProperty("refreshTimeMills"));
 
         GameField gameField = new GameField(fieldWidth, fieldHeight);
 

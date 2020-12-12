@@ -14,7 +14,7 @@ The project is configured to package executable jar file in target directory. Th
 > mvn package
 ```
 
-This will create executable jar and supporting resources inside target directory (it is ignored by Git). To clean target directory, run:
+This will create an executable jar and supporting resources inside target directory (it is ignored by Git). To clean target directory, run:
 
 ```shell
 > mvn clean
@@ -24,7 +24,9 @@ This will create executable jar and supporting resources inside target directory
 You may define number of cells in one row/column, colors for life/dead states, size of cell in resources/properties.xml file.
 
 ## Usage
-When application starts a player chooses initial configuration on the field by clicking on the corresponding cell. Player can undo the action by clicking on the cell again. When player completes initial configuration, he presses Start button and the cell evolution begins according to the rules defined in https://en.wikipedia.org/wiki/Conway's_Game_of_Life . There is an option to press Stop button to freeze current state and then proceed by pressing the Start button again.
+When application starts a user chooses initial configuration on the field by clicking on the corresponding cell. User can undo the action by clicking on the cell again. When user completes initial configuration, 
+he presses Start button and the cell evolution begins according to the rules defined in https://en.wikipedia.org/wiki/Conway's_Game_of_Life . 
+There is an option to press Stop button to freeze current state and then proceed by pressing the Start button again.
 
 ## Contributing
 

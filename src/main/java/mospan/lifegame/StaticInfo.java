@@ -4,7 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 class StaticInfo {
-    private static IntegerProperty generationCount;
+    private static final IntegerProperty generationCount;
     private static boolean stopButtonPressed;
 
     static {
