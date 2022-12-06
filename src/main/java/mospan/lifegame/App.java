@@ -5,8 +5,10 @@ import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -21,11 +23,16 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         Properties properties = new Properties();
-        try (InputStream inputStream = App.class.getResourceAsStream("/properties.xml")) {
-            properties.loadFromXML(inputStream);
+        final String PROPERTIES_FILE_NAME = "properties.xml";
+        File propertiesFile = new File(PROPERTIES_FILE_NAME);
+        try (InputStream propertiesInputStream = propertiesFile.isFile()
+                ? Files.newInputStream(propertiesFile.toPath())
+                : App.class.getResourceAsStream("/" + PROPERTIES_FILE_NAME)) {
+            properties.loadFromXML(propertiesInputStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
 
         final int fieldWidth = Integer.parseInt(properties.getProperty("fieldWidth"));
         final int fieldHeight = Integer.parseInt(properties.getProperty("fieldHeight"));
@@ -43,7 +50,6 @@ public class App extends Application {
         primaryStage.setAlwaysOnTop(true);
         primaryStage.setResizable(false);
         primaryStage.setTitle("Width: " + fieldWidth + " " + "Height: " + fieldHeight);
-
 
         for (int columnIndex = 0; columnIndex < fieldWidth; columnIndex++) {
             for (int rowIndex = 0; rowIndex < fieldHeight; rowIndex++) {
