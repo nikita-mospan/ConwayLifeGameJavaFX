@@ -44,7 +44,7 @@ class ViewTemplate {
             StaticInfo.toggleStopButtonPressed();
             if (startStopButton.getText().equals(START_BUTTON_LABEL)) {
                 startStopButton.setText(STOP_BUTTON_LABEL);
-                Synchronization.keyStartStopButton.notify();
+                Synchronization.keyStartStopButton.notifyAll();
             } else {
                 startStopButton.setText(START_BUTTON_LABEL);
             }
