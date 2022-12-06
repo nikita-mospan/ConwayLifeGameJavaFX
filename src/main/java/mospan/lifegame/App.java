@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class App extends Application {
 
@@ -18,7 +21,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         Properties properties = new Properties();
-        try(InputStream inputStream = App.class.getResourceAsStream("/properties.xml")) {
+        try (InputStream inputStream = App.class.getResourceAsStream("/properties.xml")) {
             properties.loadFromXML(inputStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -47,7 +50,7 @@ public class App extends Application {
                 final int lambdaColIndex = columnIndex;
                 final int lambdaRowIndex = rowIndex;
                 gameField.getCells().get(columnIndex).get(rowIndex).addListener((observable, oldValue, newValue) -> {
-                    if(newValue == LifeState.ALIVE) {
+                    if (newValue == LifeState.ALIVE) {
                         viewTemplate.getCell(lambdaColIndex, lambdaRowIndex).setStyle(aliveCellColor);
                     } else {
                         viewTemplate.getCell(lambdaColIndex, lambdaRowIndex).setStyle(deadCellColor);
@@ -61,10 +64,10 @@ public class App extends Application {
                 final int lambdaColIndex = columnIndex;
                 final int lambdaRowIndex = rowIndex;
                 viewTemplate.getCell(columnIndex, rowIndex).addEventHandler(MouseEvent.MOUSE_PRESSED, (event) -> {
-                                            if(viewTemplate.getStartStopButton().getText().equals(ViewTemplate.START_BUTTON_LABEL)
-                                                    && StaticInfo.getGenerationCount() == 0) {
-                                                gameField.toggleLifeState(lambdaColIndex, lambdaRowIndex);
-                                            }
+                    if (viewTemplate.getStartStopButton().getText().equals(ViewTemplate.START_BUTTON_LABEL)
+                            && StaticInfo.getGenerationCount() == 0) {
+                        gameField.toggleLifeState(lambdaColIndex, lambdaRowIndex);
+                    }
 
                 });
             }
@@ -81,22 +84,12 @@ public class App extends Application {
         });
 
         primaryStage.show();
+        final LifeController lifeController = new LifeController(gameField);
 
-        Runnable lifeCycle = new LifeController(gameField, refreshTimeMills);
+        ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
+        scheduledExecutor.scheduleAtFixedRate(lifeController::runNextCycle, 0, refreshTimeMills, TimeUnit.MILLISECONDS);
 
-        Thread lifeCycleThread = new Thread(lifeCycle);
-
-        primaryStage.setOnCloseRequest((event) -> {
-                    lifeCycleThread.interrupt();
-                    try {
-                        lifeCycleThread.join();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-        );
-
-        lifeCycleThread.start();
+        primaryStage.setOnCloseRequest((event) -> scheduledExecutor.shutdownNow());
 
     }
 }

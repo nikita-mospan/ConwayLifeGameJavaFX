@@ -1,53 +1,45 @@
 package mospan.lifegame;
 
-class LifeController implements Runnable {
+class LifeController {
 
     private final GameField gameField;
-    private final int refreshTimeMills;
+    private final int fieldWidth;
+    private final int fieldHeight;
+    private final LifeState[][] nextLifeStates;
 
-    LifeController(GameField gameField, int refreshTimeMills) {
+    LifeController(GameField gameField) {
         this.gameField = gameField;
-        this.refreshTimeMills = refreshTimeMills;
+        fieldWidth = gameField.getFieldWidth();
+        fieldHeight = gameField.getFieldHeight();
+        nextLifeStates = new LifeState[fieldWidth][fieldHeight];
     }
 
-    @Override
-    public void run() {
-        final int fieldWidth = gameField.getFieldWidth();
-        final int fieldHeight = gameField.getFieldHeight();
-        final LifeState[][] nextLifeStates = new LifeState[fieldWidth][fieldHeight];
+    public void runNextCycle() {
 
-        while(! Thread.currentThread().isInterrupted()) {
-
-            if (!StaticInfo.getStopButtonPressed()) {
-                for (int columnIndex = 0; columnIndex < fieldWidth; columnIndex++) {
-                    for (int rowIndex = 0; rowIndex < fieldHeight; rowIndex++) {
-                        nextLifeStates[columnIndex][rowIndex] = gameField.computeNextLifeState(columnIndex, rowIndex);
-                    }
-                }
-
-                //updates model
-                gameField.setCellStates(nextLifeStates);
-
-                StaticInfo.incrementGenerationCount();
-            } else {
-                synchronized (Synchronization.keyStartStopButton) {
-                    try {
-                        while (StaticInfo.getStopButtonPressed()) {
-                            Synchronization.keyStartStopButton.wait();
-                        }
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+        if (!StaticInfo.getStopButtonPressed()) {
+            for (int columnIndex = 0; columnIndex < fieldWidth; columnIndex++) {
+                for (int rowIndex = 0; rowIndex < fieldHeight; rowIndex++) {
+                    nextLifeStates[columnIndex][rowIndex] = gameField.computeNextLifeState(columnIndex, rowIndex);
                 }
             }
 
-            try {
-                Thread.sleep(refreshTimeMills);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            //updates model
+            gameField.setCellStates(nextLifeStates);
 
+            StaticInfo.incrementGenerationCount();
+        } else {
+            synchronized (Synchronization.keyStartStopButton) {
+                try {
+                    while (StaticInfo.getStopButtonPressed()) {
+                        Synchronization.keyStartStopButton.wait();
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
+
+
     }
 
 }
