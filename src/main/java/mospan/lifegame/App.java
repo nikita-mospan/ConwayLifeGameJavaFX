@@ -10,9 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.Properties;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class App extends Application {
 
@@ -90,12 +87,22 @@ public class App extends Application {
         });
 
         primaryStage.show();
-        final LifeController lifeController = new LifeController(gameField);
 
-        ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-        scheduledExecutor.scheduleAtFixedRate(lifeController::runNextCycle, 0, refreshTimeMills, TimeUnit.MILLISECONDS);
+        Runnable lifeCycle = new LifeController(gameField, refreshTimeMills);
 
-        primaryStage.setOnCloseRequest((event) -> scheduledExecutor.shutdownNow());
+        Thread lifeCycleThread = new Thread(lifeCycle);
+
+        primaryStage.setOnCloseRequest((event) -> {
+                    lifeCycleThread.interrupt();
+                    try {
+                        lifeCycleThread.join();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        );
+
+        lifeCycleThread.start();
 
     }
 }
