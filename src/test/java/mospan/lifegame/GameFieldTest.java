@@ -1,17 +1,18 @@
 package mospan.lifegame;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class GameFieldTest {
     private static GameField gameField;
     private static final int FIELD_WIDTH = 10;
     private static final int FIELD_HEIGHT = 10;
 
-    private void cleanupGameField () {
+    private void cleanupGameField() {
         for (int colIndex = 0; colIndex < FIELD_WIDTH; colIndex++) {
             for (int rowIndex = 0; rowIndex < FIELD_HEIGHT; rowIndex++) {
                 gameField.getCells().get(colIndex).get(rowIndex).set(LifeState.DEAD);
@@ -19,17 +20,17 @@ public class GameFieldTest {
         }
     }
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeClass() {
         gameField = new GameField(FIELD_WIDTH, FIELD_HEIGHT);
     }
 
-    @Before
+    @BeforeEach
     public void before() {
         cleanupGameField();
     }
 
-    @After
+    @AfterEach
     public void after() {
         cleanupGameField();
     }
@@ -47,12 +48,12 @@ public class GameFieldTest {
         gameField.getCells().get(1).get(2).set(LifeState.ALIVE);
 
         //verify
-        Assert.assertEquals(gameField.computeNextLifeState(1, 0), LifeState.DEAD);
-        Assert.assertEquals(gameField.computeNextLifeState(1, 1), LifeState.ALIVE);
-        Assert.assertEquals(gameField.computeNextLifeState(1, 2), LifeState.DEAD);
+        assertEquals(LifeState.DEAD, gameField.computeNextLifeState(1, 0));
+        assertEquals(LifeState.ALIVE, gameField.computeNextLifeState(1, 1));
+        assertEquals(LifeState.DEAD, gameField.computeNextLifeState(1, 2));
 
-        Assert.assertEquals(gameField.computeNextLifeState(0, 1), LifeState.ALIVE);
-        Assert.assertEquals(gameField.computeNextLifeState(2, 1), LifeState.ALIVE);
+        assertEquals(LifeState.ALIVE, gameField.computeNextLifeState(0, 1));
+        assertEquals(LifeState.ALIVE, gameField.computeNextLifeState(2, 1));
     }
 
     @Test
@@ -66,10 +67,9 @@ public class GameFieldTest {
         gameField.getCells().get(1).get(1).set(LifeState.ALIVE);
 
         //verify
-        Assert.assertEquals(gameField.computeNextLifeState(0, 0), LifeState.ALIVE);
-        Assert.assertEquals(gameField.computeNextLifeState(0, 1), LifeState.ALIVE);
-        Assert.assertEquals(gameField.computeNextLifeState(1, 0), LifeState.ALIVE);
-        Assert.assertEquals(gameField.computeNextLifeState(1, 1), LifeState.ALIVE);
-
+        assertEquals(LifeState.ALIVE, gameField.computeNextLifeState(0, 0));
+        assertEquals(LifeState.ALIVE, gameField.computeNextLifeState(0, 1));
+        assertEquals(LifeState.ALIVE, gameField.computeNextLifeState(1, 0));
+        assertEquals(LifeState.ALIVE, gameField.computeNextLifeState(1, 1));
     }
 }

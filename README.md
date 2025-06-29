@@ -1,11 +1,6 @@
 # ConwayLifeGameJavaFX
 > The project contains source code of Conway's Game of Life (https://en.wikipedia.org/wiki/Conway's_Game_of_Life). It is organized as Maven project and is written as GUI application on JavaFX for self-study purposes.
 
-## Prerequisites
-
-JDK 1.8 or higher.
-Maven
-
 ## Installing / Uninstalling
 
 The project is configured to package executable jar file in target directory. The Maven package goal is executed in a usual fashion: go to the root directory of the project (pom.xml file is located there). Then run:
